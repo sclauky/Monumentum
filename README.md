@@ -1,34 +1,35 @@
-# Monumentum
-
-```text
-Monumentum/
-├── .env
+src/
+├── main.py
+├── requirements.txt
 ├── .gitignore
-├── .oxlintrc.json
-├── index.html
-├── package.json
-├── package-lock.json
-├── public/
-│   ├── favicon.svg
-│   └── icons.svg
-├── src/
-│   ├── App.css
-│   ├── App.tsx
-│   ├── assets/
-│   ├── backend/
-│   │   ├── auth.py
-│   │   ├── cataloque.py
-│   │   └── collection.py
-│   ├── database/
-│   │   └── user.sqlite
-│   ├── frontend/
-│   │   ├── 404.tsx
-│   │   └── 500.tsx
-│   ├── index.css
-│   └── main.tsx
-├── tsconfig.json
-├── tsconfig.app.json
-├── tsconfig.node.json
-├── vite.config.ts
-└── README.md
-```
+├── README.md
+│
+├── core/
+│   ├── config.py
+│   └── security.py
+│
+├── db/
+│   ├── database.py
+│   └── init_db.py
+│
+├── models/
+│   ├── user.py
+│   ├── item.py
+│   └── collection.py
+│
+├── schemas/
+│   ├── auth.py
+│   ├── item.py
+│   └── collection.py
+│
+├── dependencies/
+│   ├── database.py
+│   ├── auth.py
+│   └── pagination.py
+│
+├── routers/
+│   ├── auth.py
+│   ├── items.py
+│   └── collection.py
+│
+└── seed.py
