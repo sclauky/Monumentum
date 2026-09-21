@@ -1,18 +1,17 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from db.database import create_db_and_tables
-from models.monument import Monument
 
 
-@asynccontextmanager
+@asynccontextmanager 
 async def lifespan(app: FastAPI):
-    await create_db_and_tables()
+    await create_db_and_tables() #on crée les tables au démarage
     yield
 
 
 app = FastAPI(
-    title="Monuments de France API",
-    description="API pour gérer une collection de monuments français.",
+    title="Monumentum API",
+    description="API de gestion d'une collection de monuments français.",
     version="1.0.0",
     lifespan=lifespan,
 )
