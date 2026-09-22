@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from db.database import create_db_and_tables
 
+from db.database import create_db_and_tables
+from models.monument import Monument
 
 @asynccontextmanager 
 async def lifespan(app: FastAPI):
