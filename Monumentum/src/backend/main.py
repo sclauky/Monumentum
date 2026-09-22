@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 from db.database import create_db_and_tables
 from models.monument import Monument
+from models.user import User
 
 @asynccontextmanager 
 async def lifespan(app: FastAPI):
