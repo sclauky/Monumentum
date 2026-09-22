@@ -1,0 +1,52 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f3f4f7;
+  background-color: #151923;
+  line-height: 1.5;
+  color-scheme: dark;
+
+  --background: #151923;
+  --sidebar: #11151e;
+  --surface: #222938;
+  --surface-hover: #2b3446;
+  --text: #f3f4f7;
+  --text-secondary: #b2bac9;
+  --accent: #ff7865;
+  --border: #323b4c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

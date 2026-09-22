@@ -1,0 +1,266 @@
+/* Structure générale */
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.main-content {
+  min-width: 0;
+  padding: 40px;
+}
+
+/* Menu latéral */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 18px 24px;
+  background-color: var(--sidebar);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  margin-bottom: 48px;
+}
+
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background-color: var(--accent);
+  color: var(--sidebar);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-item {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+.nav-item:hover:not(:disabled) {
+  background-color: var(--surface);
+}
+
+.nav-item.nav-item-active {
+  background-color: rgb(255 120 101 / 12%);
+  color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+  font-weight: 700;
+}
+
+.nav-item:disabled {
+  opacity: 0.6;
+}
+
+/* Profil en bas du menu */
+
+.sidebar-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+.profile-avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--surface);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+.profile-description {
+  margin: 2px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* En-tête du catalogue */
+
+.catalogue-header {
+  margin-bottom: 32px;
+}
+
+.catalogue-header h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+  letter-spacing: -1px;
+}
+
+.catalogue-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.catalogue-count {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Cartes de monuments */
+
+.monuments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.monument-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background-color: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.monument-card:hover {
+  border-color: var(--accent);
+}
+
+.monument-card h3 {
+  margin: 0 0 12px;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.monument-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.monument-card p:last-child {
+  margin-bottom: 0;
+}
+
+.monument-image {
+  width: 100%;
+  height: 260px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Recherche */
+
+.catalogue-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.search-field {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.search-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.search-field input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.search-field input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Filtres */
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.category-button {
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background-color: var(--surface);
+  color: var(--text-secondary);
+}
+
+.category-button:hover {
+  background-color: var(--surface-hover);
+  color: var(--text);
+}
+
+.category-button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--sidebar);
+  font-weight: 700;
+}
+
+/* Aucun résultat */
+
+.empty-state {
+  padding: 48px 24px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.empty-state h2 {
+  margin: 0 0 12px;
+  font-size: 22px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--text-secondary);
+}
