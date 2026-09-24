@@ -1,3 +1,5 @@
+import { Link } from 'react-router'
+
 function Sidebar() {
   return (
     <aside className="sidebar">
@@ -9,13 +11,9 @@ function Sidebar() {
       </div>
 
       <nav className="sidebar-nav" aria-label="Navigation principale">
-        <button
-          type="button"
-          className="nav-item nav-item-active"
-          aria-current="page"
-        >
+        <Link to="/" className="nav-item nav-item-active">
           Catalogue
-        </button>
+        </Link>
 
         <button type="button" className="nav-item" disabled>
           Ma collection

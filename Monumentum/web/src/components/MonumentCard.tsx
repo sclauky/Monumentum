@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import type { Item } from '../types/api'
 
 interface MonumentCardProps {
@@ -17,8 +18,15 @@ function MonumentCard({ monument }: MonumentCardProps) {
 
       <h3>{monument.titre}</h3>
       <p>Catégorie : {monument.categorie}</p>
-      <p>Année : {monument.annee}</p>
       <p>{monument.description}</p>
+
+      <Link
+        to={`/monuments/${monument.id}`}
+        className="action-link"
+        aria-label={`Voir la fiche : ${monument.titre}`}
+      >
+        Voir la fiche
+      </Link>
     </article>
   )
 }
