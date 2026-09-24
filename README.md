@@ -24,7 +24,7 @@ Monumentum/
 │       ├── assets/
 │       ├── backend/
 │       │   ├── main.py
-│       │   ├── seed.py
+│       │   ├── seed.py                     --> rempli la db avec les monuments
 │       │   ├── core/
 │       │   │   ├── config.py
 │       │   │   └── security.py
