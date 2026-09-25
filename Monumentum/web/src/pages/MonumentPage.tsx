@@ -1,18 +1,29 @@
 import { Link, useParams } from 'react-router'
-import { monuments } from '../mocks/monuments'
+import { useApi } from '../hooks/useApi'
+import type { Item } from '../types/api'
 
 function MonumentPage() {
   const { id } = useParams()
 
-  const monument = monuments.find(
-    (item) => String(item.id) === id,
-  )
+  const {
+    data: monument,
+    loading,
+    error,
+  } = useApi<Item>(`/items/${encodeURIComponent(id ?? '')}`)
 
-  if (!monument) {
+  if (loading) {
     return (
-      <section className="empty-state">
-        <h1>Monument introuvable</h1>
-        <p>Ce monument n’existe pas dans notre catalogue de test.</p>
+      <p className="catalogue-count" role="status">
+        Chargement du monument…
+      </p>
+    )
+  }
+
+  if (error || !monument) {
+    return (
+      <section className="empty-state" role="alert">
+        <h1>Impossible d’afficher ce monument</h1>
+        <p>{error ?? 'Aucun monument reçu.'}</p>
 
         <Link to="/" className="action-link">
           Retour au catalogue
@@ -50,8 +61,23 @@ function MonumentPage() {
 
           <dl className="detail-facts">
             <div>
+              <dt>Ville</dt>
+              <dd>{monument.ville}</dd>
+            </div>
+
+            <div>
               <dt>Année</dt>
               <dd>{anneeAffichee}</dd>
+            </div>
+
+            <div>
+              <dt>Architecte</dt>
+              <dd>{monument.architecte}</dd>
+            </div>
+
+            <div>
+              <dt>Rareté</dt>
+              <dd>{monument.rarete}</dd>
             </div>
           </dl>
 

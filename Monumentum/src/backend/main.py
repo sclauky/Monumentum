@@ -17,6 +17,10 @@ from routers.auth import router as auth_router
 from routers.items import router as items_router
 from routers.collection import router as collection_router
 
+# AJOUT LISA
+from fastapi.middleware.cors import CORSMiddleware
+# AJOUT LISA
+
 @asynccontextmanager 
 async def lifespan(app: FastAPI):
     await create_db_and_tables() #on crée les tables au démarage
@@ -29,6 +33,15 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+# AJOUT LISA
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
+)
+# AJOUT LISA
 
 @app.exception_handler(FastAPIHTTPException)
 async def http_exception_handler(
