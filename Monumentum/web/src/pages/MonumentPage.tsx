@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router'
+import AddToCollectionButton from '../components/AddToCollectionButton'
 import { useApi } from '../hooks/useApi'
 import type { Item } from '../types/api'
 
@@ -80,6 +81,13 @@ function MonumentPage() {
               <dd>{monument.rarete}</dd>
             </div>
           </dl>
+
+          <div className="collection-action">
+            <AddToCollectionButton
+              key={monument.id}
+              itemId={monument.id}
+            />
+          </div>
 
           <h2>À propos de ce monument</h2>
           <p className="detail-description">

@@ -22,3 +22,36 @@ export interface ItemListResponse {
   limit: number
   results: Item[]
 }
+
+export interface AuthCredentials {
+  email: string
+  password: string
+}
+
+export interface User {
+  id: number
+  email: string
+}
+
+export interface TokenResponse {
+  access_token: string
+  token_type: string
+}
+
+export type CollectionStatut = 'a_voir' | 'en_cours' | 'vu'
+
+export interface CollectionCreate {
+  item_id: number
+  statut: CollectionStatut
+  note?: number | null
+  commentaire?: string | null
+}
+
+export interface CollectionEntry {
+  id: number
+  statut: CollectionStatut
+  note: number | null
+  commentaire: string | null
+  date_ajout: string
+  item: Item
+}
