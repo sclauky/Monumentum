@@ -59,27 +59,37 @@ Monumentum/
 # Lancement du projet (BACKEND)
 
 ## 1. Cloner le projet
+```
 git clone <URL_DU_DEPOT>
 cd Monumentum
-
+```
 ## 2. Créer l'environnement virtuel
+```
 python -m venv .venv
-
+```
 ## 3. Activer l'environnement virtuel
+```
 .\.venv\Scripts\Activate.ps1
-
+```
 ## 4. Installer toutes les dépendances
+```
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-
-## 5. Créer le fichier .env
+```
+## 5. Créer le fichier .env et innitialiser example.env
+```
 Copy-Item .env.example .env
-
+python -c "import secrets; print(secrets.token_urlsafe(32))"
+```
 ## 6. Remplir le fichier .env avec la configuration du projet
+```
 notepad .env
-
+```
 ## 7. Initialiser la base de données et le catalogue
+```
 python src/backend/seed.py
-
+```
 ## 8. Lancer le serveur FastAPI
+```
 python -m uvicorn main:app --reload --app-dir src/backend
+```
