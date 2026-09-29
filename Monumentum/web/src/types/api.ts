@@ -61,3 +61,8 @@ export interface CollectionUpdate {
   note?: number | null
   commentaire?: string | null
 }
+
+export interface MonumentReview {
+  note: number
+  commentaire: string
+}

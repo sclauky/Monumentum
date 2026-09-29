@@ -1,36 +1,31 @@
 import { NavLink } from 'react-router'
 import { useAuth } from '../hooks/useAuth'
 
+function navClass({ isActive }: { isActive: boolean }) {
+  return `nav-item${isActive ? ' nav-item-active' : ''}`
+}
+
 function Sidebar() {
   const { user, isLoading, sessionError, logout } = useAuth()
 
   return (
     <aside className="sidebar">
       <div className="brand">
-        <span className="brand-symbol" aria-hidden="true">
-          M
-        </span>
+        <span className="brand-symbol" aria-hidden="true">M</span>
         <span className="brand-name">Monumentum</span>
       </div>
 
       <nav className="sidebar-nav" aria-label="Navigation principale">
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) =>
-            `nav-item${isActive ? ' nav-item-active' : ''}`
-          }
-        >
+        <NavLink to="/" end className={navClass}>
           Catalogue
         </NavLink>
 
-        <NavLink
-          to="/collection"
-          className={({ isActive }) =>
-            `nav-item${isActive ? ' nav-item-active' : ''}`
-          }
-        >
+        <NavLink to="/collection" className={navClass}>
           Ma collection
+        </NavLink>
+
+        <NavLink to="/watchlist" className={navClass}>
+          Watchlist
         </NavLink>
 
         <button type="button" className="nav-item" disabled>
@@ -38,12 +33,7 @@ function Sidebar() {
         </button>
 
         {!user && !isLoading && (
-          <NavLink
-            to="/connexion"
-            className={({ isActive }) =>
-              `nav-item${isActive ? ' nav-item-active' : ''}`
-            }
-          >
+          <NavLink to="/connexion" className={navClass}>
             Se connecter
           </NavLink>
         )}
@@ -68,9 +58,7 @@ function Sidebar() {
           </p>
 
           {sessionError && (
-            <p className="auth-error" role="alert">
-              {sessionError}
-            </p>
+            <p className="auth-error" role="alert">{sessionError}</p>
           )}
 
           {user && (

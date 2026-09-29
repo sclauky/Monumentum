@@ -41,7 +41,16 @@ function App() {
                   path="/collection"
                   element={
                     <ProtectedRoute>
-                      <CollectionPage />
+                      <CollectionPage key="collection" mode="collection" />
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="/watchlist"
+                  element={
+                    <ProtectedRoute>
+                      <CollectionPage key="watchlist" mode="watchlist" />
                     </ProtectedRoute>
                   }
                 />

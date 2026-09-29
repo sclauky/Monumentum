@@ -2,6 +2,7 @@ import { createContext } from 'react'
 import type {
   CollectionEntry,
   CollectionUpdate,
+  MonumentReview,
 } from '../types/api'
 
 interface CollectionContextValue {
@@ -14,6 +15,10 @@ interface CollectionContextValue {
   updateEntry: (
     entryId: number,
     changes: CollectionUpdate,
+  ) => Promise<void>
+  saveReview: (
+    itemId: number,
+    review: MonumentReview,
   ) => Promise<void>
 }
 

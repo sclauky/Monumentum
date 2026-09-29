@@ -11,6 +11,7 @@ import {
 import type {
   CollectionEntry,
   CollectionUpdate,
+  MonumentReview,
 } from '../types/api'
 
 interface CollectionProviderProps {
@@ -22,10 +23,7 @@ interface CollectionSessionProps {
   token: string | null
 }
 
-function CollectionSession({
-  children,
-  token,
-}: CollectionSessionProps) {
+function CollectionSession({ children, token }: CollectionSessionProps) {
   const [entries, setEntries] = useState<CollectionEntry[]>([])
   const [loading, setLoading] = useState(Boolean(token))
   const [error, setError] = useState<string | null>(null)
@@ -45,23 +43,19 @@ function CollectionSession({
 
     getCollection(token, controller.signal)
       .then((data) => {
-        if (!controller.signal.aborted) {
-          setEntries(data)
-        }
+        if (!controller.signal.aborted) setEntries(data)
       })
       .catch((caughtError: unknown) => {
         if (!controller.signal.aborted) {
           setError(
             caughtError instanceof Error
               ? caughtError.message
-              : 'Impossible de charger votre collection.',
+              : 'Impossible de charger vos monuments.',
           )
         }
       })
       .finally(() => {
-        if (!controller.signal.aborted) {
-          setLoading(false)
-        }
+        if (!controller.signal.aborted) setLoading(false)
       })
 
     return () => controller.abort()
@@ -71,50 +65,69 @@ function CollectionSession({
     setRefreshCount((previous) => previous + 1)
   }
 
+  function storeEntry(updatedEntry: CollectionEntry) {
+    setEntries((previous) => [
+      ...previous.filter(
+        (entry) => entry.item.id !== updatedEntry.item.id,
+      ),
+      updatedEntry,
+    ])
+  }
+
   async function addMonument(itemId: number): Promise<void> {
-    if (!token) {
-      throw new Error('Connectez-vous pour ajouter un monument.')
-    }
+    if (!token) throw new Error('Connectez-vous pour continuer.')
 
     const newEntry = await addToCollection(itemId, token)
-
-    setEntries((previous) => {
-      const alreadyExists = previous.some(
-        (entry) => entry.item.id === newEntry.item.id,
-      )
-
-      return alreadyExists ? previous : [...previous, newEntry]
-    })
+    storeEntry(newEntry)
   }
 
   async function updateEntry(
     entryId: number,
     changes: CollectionUpdate,
   ): Promise<void> {
-    if (!token) {
-      throw new Error('Connectez-vous pour modifier votre collection.')
-    }
+    if (!token) throw new Error('Connectez-vous pour continuer.')
 
     const updatedEntry = await updateCollectionEntry(
       entryId,
       changes,
       token,
     )
+    storeEntry(updatedEntry)
+  }
 
-    setEntries((previous) =>
-      previous.map((entry) =>
-        entry.id === entryId ? updatedEntry : entry,
-      ),
+  async function saveReview(
+    itemId: number,
+    review: MonumentReview,
+  ): Promise<void> {
+    if (!token) throw new Error('Connectez-vous pour continuer.')
+
+    if (
+      !Number.isInteger(review.note) ||
+      review.note < 1 ||
+      review.note > 5
+    ) {
+      throw new Error('Choisissez une note entre 1 et 5 étoiles.')
+    }
+
+    const existingEntry = entries.find(
+      (entry) => entry.item.id === itemId,
     )
+
+    const savedEntry = existingEntry
+      ? await updateCollectionEntry(
+          existingEntry.id,
+          { statut: 'vu', ...review },
+          token,
+        )
+      : await addToCollection(itemId, token, review)
+
+    storeEntry(savedEntry)
   }
 
   async function removeEntry(entryId: number): Promise<void> {
-    if (!token) {
-      throw new Error('Connectez-vous pour modifier votre collection.')
-    }
+    if (!token) throw new Error('Connectez-vous pour continuer.')
 
     await deleteFromCollection(entryId, token)
-
     setEntries((previous) =>
       previous.filter((entry) => entry.id !== entryId),
     )
@@ -123,13 +136,8 @@ function CollectionSession({
   return (
     <CollectionContext.Provider
       value={{
-        entries,
-        loading,
-        error,
-        reload,
-        addMonument,
-        updateEntry,
-        removeEntry,
+        entries, loading, error, reload,
+        addMonument, updateEntry, saveReview, removeEntry,
       }}
     >
       {children}

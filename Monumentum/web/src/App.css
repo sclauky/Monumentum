@@ -729,3 +729,47 @@
   outline: 2px solid #ff7865;
   outline-offset: 3px;
 }
+
+.review-dialog {
+  box-sizing: border-box;
+  width: min(480px, calc(100vw - 40px));
+  max-height: 85vh;
+  padding: 28px;
+  overflow-y: auto;
+  border: 1px solid #65718a;
+  border-radius: 16px;
+  background: #222938;
+  color: #f5f5f5;
+}
+
+.review-dialog::backdrop {
+  background: rgb(0 0 0 / 70%);
+}
+
+.review-dialog h2 {
+  margin-top: 0;
+  overflow-wrap: anywhere;
+}
+
+.review-dialog > p {
+  margin-bottom: 24px;
+  color: #c3cada;
+}
+
+.monument-actions {
+  margin-top: 18px;
+}
+
+.monument-actions .collection-edit-actions {
+  align-items: center;
+}
+
+a.collection-secondary-button {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.monument-actions .collection-secondary-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

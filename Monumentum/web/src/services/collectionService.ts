@@ -3,6 +3,7 @@ import type {
   CollectionCreate,
   CollectionEntry,
   CollectionUpdate,
+  MonumentReview,
 } from '../types/api'
 
 export function getCollection(
@@ -19,11 +20,19 @@ export function getCollection(
 export function addToCollection(
   itemId: number,
   token: string,
+  review?: MonumentReview,
 ): Promise<CollectionEntry> {
-  const body: CollectionCreate = {
-    item_id: itemId,
-    statut: 'a_voir',
-  }
+  const body: CollectionCreate = review
+    ? {
+        item_id: itemId,
+        statut: 'vu',
+        note: review.note,
+        commentaire: review.commentaire,
+      }
+    : {
+        item_id: itemId,
+        statut: 'a_voir',
+      }
 
   return httpClient<CollectionEntry>(
     '/me/collection',
