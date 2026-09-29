@@ -2,6 +2,7 @@ import { httpClient } from './httpClient'
 import type {
   CollectionCreate,
   CollectionEntry,
+  CollectionUpdate,
 } from '../types/api'
 
 export function getCollection(
@@ -29,6 +30,21 @@ export function addToCollection(
     {
       method: 'POST',
       body: JSON.stringify(body),
+    },
+    token,
+  )
+}
+
+export function updateCollectionEntry(
+  entryId: number,
+  changes: CollectionUpdate,
+  token: string,
+): Promise<CollectionEntry> {
+  return httpClient<CollectionEntry>(
+    `/me/collection/${entryId}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(changes),
     },
     token,
   )

@@ -1,5 +1,8 @@
 import { createContext } from 'react'
-import type { CollectionEntry } from '../types/api'
+import type {
+  CollectionEntry,
+  CollectionUpdate,
+} from '../types/api'
 
 interface CollectionContextValue {
   entries: CollectionEntry[]
@@ -8,6 +11,10 @@ interface CollectionContextValue {
   reload: () => void
   addMonument: (itemId: number) => Promise<void>
   removeEntry: (entryId: number) => Promise<void>
+  updateEntry: (
+    entryId: number,
+    changes: CollectionUpdate,
+  ) => Promise<void>
 }
 
 export const CollectionContext =

@@ -6,8 +6,12 @@ import {
   addToCollection,
   deleteFromCollection,
   getCollection,
+  updateCollectionEntry,
 } from '../services/collectionService'
-import type { CollectionEntry } from '../types/api'
+import type {
+  CollectionEntry,
+  CollectionUpdate,
+} from '../types/api'
 
 interface CollectionProviderProps {
   children: ReactNode
@@ -83,6 +87,27 @@ function CollectionSession({
     })
   }
 
+  async function updateEntry(
+    entryId: number,
+    changes: CollectionUpdate,
+  ): Promise<void> {
+    if (!token) {
+      throw new Error('Connectez-vous pour modifier votre collection.')
+    }
+
+    const updatedEntry = await updateCollectionEntry(
+      entryId,
+      changes,
+      token,
+    )
+
+    setEntries((previous) =>
+      previous.map((entry) =>
+        entry.id === entryId ? updatedEntry : entry,
+      ),
+    )
+  }
+
   async function removeEntry(entryId: number): Promise<void> {
     if (!token) {
       throw new Error('Connectez-vous pour modifier votre collection.')
@@ -103,6 +128,7 @@ function CollectionSession({
         error,
         reload,
         addMonument,
+        updateEntry,
         removeEntry,
       }}
     >

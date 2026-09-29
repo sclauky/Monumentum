@@ -55,3 +55,9 @@ export interface CollectionEntry {
   date_ajout: string
   item: Item
 }
+
+export interface CollectionUpdate {
+  statut?: CollectionStatut | null
+  note?: number | null
+  commentaire?: string | null
+}
