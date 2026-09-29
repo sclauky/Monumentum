@@ -75,6 +75,7 @@ async def add_to_collection(
     result = await session.execute(
         select(Monument).where(Monument.id == request.item_id)
     )
+    
 
     monument = result.scalar_one_or_none()
 
@@ -83,6 +84,13 @@ async def add_to_collection(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Item introuvable",
         )
+        
+    if request.statut == Statut.VU:
+        if request.note is None or not 1 <= request.note <= 5:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Une note entre 1 et 5 est obligatoire pour un monument vu",
+            )
 
     # Vérifie que l'utilisateur ne possède pas déjà ce monument
     result = await session.execute(
@@ -147,6 +155,16 @@ async def update_collection_entry(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Entrée introuvable",
         )
+
+    new_statut = request.statut if request.statut is not None else entry.statut
+    new_note = request.note if request.note is not None else entry.note
+
+    if new_statut == Statut.VU:
+        if new_note is None or not 1 <= new_note <= 5:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Une note entre 1 et 5 est obligatoire pour un monument vu",
+            )
 
     if request.statut is not None:
         entry.statut = request.statut
