@@ -25,7 +25,7 @@ function Sidebar() {
         </NavLink>
 
         <NavLink to="/watchlist" className={navClass}>
-          Watchlist
+          À visiter
         </NavLink>
 
         <button type="button" className="nav-item" disabled>

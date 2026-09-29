@@ -16,7 +16,7 @@ function CollectionPage({
   const [tri, setTri] = useState<CollectionSort>('recent')
 
   const isWatchlist = mode === 'watchlist'
-  const title = isWatchlist ? 'Ma watchlist' : 'Ma collection'
+  const title = isWatchlist ? 'Mes prochaines visites' : 'Ma collection'
 
   const visibleEntries = entries
     .filter((entry) =>
@@ -77,12 +77,12 @@ function CollectionPage({
             <div className="empty-state">
               <h2>
                 {isWatchlist
-                  ? 'Votre watchlist est vide'
+                  ? 'Aucun monument à visiter pour le moment'
                   : 'Votre collection est vide'}
               </h2>
               <p>
                 {isWatchlist
-                  ? 'Ajoutez des monuments pour préparer vos prochaines visites.'
+                  ? 'Utilisez le marque-page du catalogue pour préparer vos prochaines visites.'
                   : 'Ajoutez un monument visité et donnez-lui une note.'}
               </p>
               <Link to="/" className="action-link">
