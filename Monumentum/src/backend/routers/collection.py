@@ -15,6 +15,12 @@ from schemas.collection import (
     CollectionStatsResponse,
     CollectionUpdate,
 )
+from sqlalchemy import func
+from models.comment_like import CommentLike
+from schemas.collection import (
+    CommentResponse,
+    MonumentCommentsResponse,
+)
 
 
 router = APIRouter(
@@ -266,3 +272,118 @@ async def get_collection(
         )
 
     return results
+
+@router.get(
+    "/items/{item_id}/comments",
+    response_model=MonumentCommentsResponse,
+)
+async def get_monument_comments(
+    item_id: int,
+    session: AsyncSession = Depends(get_session),
+):
+    # Vérifier que le monument existe
+    result = await session.execute(
+        select(Monument).where(Monument.id == item_id)
+    )
+    monument = result.scalar_one_or_none()
+
+    if monument is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Item introuvable",
+        )
+
+    # Récupérer les entrées contenant un commentaire
+    result = await session.execute(
+        select(CollectionEntry).where(
+            CollectionEntry.item_id == item_id,
+            CollectionEntry.commentaire.is_not(None),
+        )
+    )
+    entries = result.scalars().all()
+
+    commentaires = []
+
+    for entry in entries:
+        like_result = await session.execute(
+            select(func.count(CommentLike.id)).where(
+                CommentLike.entry_id == entry.id
+            )
+        )
+        likes = like_result.scalar_one()
+
+        commentaires.append(
+            CommentResponse(
+                id=entry.id,
+                user_id=entry.user_id,
+                note=entry.note,
+                commentaire=entry.commentaire,
+                date_ajout=entry.date_ajout,
+                likes=likes,
+            )
+        )
+
+    commentaires.sort(key=lambda comment: comment.likes, reverse=True)
+
+    # Calcul de la moyenne des notes
+    note_result = await session.execute(
+        select(func.avg(CollectionEntry.note)).where(
+            CollectionEntry.item_id == item_id,
+            CollectionEntry.note.is_not(None),
+        )
+    )
+
+    note_moyenne = note_result.scalar_one()
+
+    return MonumentCommentsResponse(
+        commentaires=commentaires,
+        note_moyenne=float(note_moyenne or 0),
+    )
+
+@router.post(
+    "/items/comments/{entry_id}/like",
+    status_code=status.HTTP_201_CREATED,
+)
+async def like_comment(
+    entry_id: int,
+    current_user: User = Depends(get_current_user),
+    session: AsyncSession = Depends(get_session),
+):
+    result = await session.execute(
+        select(CollectionEntry).where(
+            CollectionEntry.id == entry_id,
+            CollectionEntry.commentaire.is_not(None),
+        )
+    )
+    entry = result.scalar_one_or_none()
+
+    if entry is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Commentaire introuvable",
+        )
+
+    result = await session.execute(
+        select(CommentLike).where(
+            CommentLike.entry_id == entry_id,
+            CommentLike.user_id == current_user.id,
+        )
+    )
+
+    existing_like = result.scalar_one_or_none()
+
+    if existing_like is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Commentaire déjà aimé",
+        )
+
+    like = CommentLike(
+        user_id=current_user.id,
+        entry_id=entry_id,
+    )
+
+    session.add(like)
+    await session.commit()
+
+    return {"message": "Commentaire aimé"}

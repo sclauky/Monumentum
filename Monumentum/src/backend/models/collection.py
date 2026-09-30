@@ -21,3 +21,4 @@ class CollectionEntry(SQLModel, table=True):
     commentaire: str | None = None
 
     date_ajout: datetime = Field(default_factory=datetime.now)
+    

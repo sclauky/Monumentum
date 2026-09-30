@@ -11,6 +11,7 @@ from db.database import create_db_and_tables
 from models.monument import Monument
 from models.user import User
 from models.collection import CollectionEntry
+from models.comment_like import CommentLike
 
 from routers.auth import router as auth_router
 from routers.items import router as items_router

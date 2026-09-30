@@ -32,3 +32,16 @@ class CollectionStatsResponse(BaseModel):
     total: int
     par_statut: dict[str, int]
     note_moyenne: float
+    
+class CommentResponse(BaseModel):
+    id: int
+    user_id: int
+    note: float | None
+    commentaire: str
+    date_ajout: datetime
+    likes: int
+
+
+class MonumentCommentsResponse(BaseModel):
+    commentaires: list[CommentResponse]
+    note_moyenne: float
