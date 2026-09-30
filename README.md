@@ -56,12 +56,11 @@ Monumentum/
 └── .venv/
 ```
 
-# Lancement du projet (BACKEND)
+# Lancement du projet (BACKEND) NON COMPATIBLE AVEC LA VERSION WSL
 
-## 1. Cloner le projet
+## 1. Placemant
 
 ```
-git clone <URL_DU_DEPOT>
 cd Monumentum
 ```
 
