@@ -11,7 +11,13 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="brand">
-        <span className="brand-symbol" aria-hidden="true">M</span>
+        <img
+          src="/monumentum_logo.png"
+          alt=""
+          className="brand-logo"
+          width={52}
+          height={52}
+        />
         <span className="brand-name">Monumentum</span>
       </div>
 
@@ -58,7 +64,9 @@ function Sidebar() {
           </p>
 
           {sessionError && (
-            <p className="auth-error" role="alert">{sessionError}</p>
+            <p className="auth-error" role="alert">
+              {sessionError}
+            </p>
           )}
 
           {user && (

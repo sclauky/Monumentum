@@ -1033,3 +1033,17 @@ a.collection-secondary-button {
   white-space: nowrap;
   border: 0;
 }
+
+.sidebar .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  display: block;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
