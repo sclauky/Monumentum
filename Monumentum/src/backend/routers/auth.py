@@ -20,11 +20,18 @@ router = APIRouter(  # créé un mini routeur
 )
 
 
-@router.post(
-    "/register",
-    response_model=UserResponse,
-    status_code=status.HTTP_201_CREATED,  # inscription réussie doit retourner HTTP 201
-)
+@router.post("/register", ...)
+async def register(
+    request: RegisterRequest,
+    session: AsyncSession = Depends(get_session),
+):
+    if not validate_password(request.password):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre",
+        )
+
+    
 async def register(
     request: RegisterRequest,  # Le corps JSON de la requête doit correspondre à RegisterRequest
     session: AsyncSession = Depends(get_session),
