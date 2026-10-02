@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-) {
+): [T, (v: T) => void] {
   const [value, setValue] = useState<T>(() => {
     try {
       const storedValue = localStorage.getItem(key)
@@ -24,9 +24,11 @@ export function useLocalStorage<T>(
         localStorage.setItem(key, JSON.stringify(value))
       }
     } catch {
-      console.warn('La session ne peut pas être conservée dans ce navigateur.')
+      console.warn(
+        'La session ne peut pas être conservée dans ce navigateur.',
+      )
     }
   }, [key, value])
 
-  return [value, setValue] as const
+  return [value, setValue]
 }

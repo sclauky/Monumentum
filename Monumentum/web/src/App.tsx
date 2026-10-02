@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import './App.css'
 import Sidebar from './components/Sidebar'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -28,8 +28,13 @@ function App() {
                 />
 
                 <Route
-                  path="/connexion"
+                  path="/login"
                   element={<AuthPage key="login" mode="login" />}
+                />
+
+                <Route
+                  path="/connexion"
+                  element={<Navigate to="/login" replace />}
                 />
 
                 <Route

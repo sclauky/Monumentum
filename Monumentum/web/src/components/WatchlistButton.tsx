@@ -31,17 +31,17 @@ function WatchlistButton({
 
   useEffect(() => {
     if (!confirmation) return
-
     const timeout = window.setTimeout(() => {
       setConfirmation(null)
     }, 3000)
-
     return () => window.clearTimeout(timeout)
   }, [confirmation])
 
   const entry = entries.find((item) => item.item.id === itemId)
   const isVisited = entry?.statut === 'vu'
   const isSaved = Boolean(entry) && !isVisited
+  const isDisabled =
+    pending || isLoading || loading || isVisited || Boolean(collectionError)
 
   const label = isVisited
     ? 'Déjà visité : présent dans ma collection'
@@ -57,7 +57,6 @@ function WatchlistButton({
 
   async function handleClick() {
     if (pending || isVisited) return
-
     setPending(true)
     setError(null)
     setConfirmation(null)
@@ -87,7 +86,7 @@ function WatchlistButton({
     <div className={`watchlist-control watchlist-control--${variant}`}>
       {!user && !isLoading ? (
         <Link
-          to="/connexion"
+          to="/login"
           className={`watchlist-toggle watchlist-toggle--${variant}`}
           aria-label={`Se connecter pour enregistrer ${itemTitle}`}
           title="Se connecter pour ajouter aux lieux à visiter"
@@ -104,17 +103,10 @@ function WatchlistButton({
           aria-label={pending ? 'Mise à jour des lieux à visiter…' : label}
           aria-busy={pending}
           title={label}
-          disabled={
-            pending ||
-            isLoading ||
-            loading ||
-            isVisited ||
-            Boolean(collectionError)
-          }
+          disabled={isDisabled}
           onClick={handleClick}
         >
           {pending ? <span aria-hidden="true">…</span> : icon}
-
           {variant === 'inline' && (
             <span>
               {isVisited

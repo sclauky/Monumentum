@@ -41,7 +41,7 @@ function AuthPage({ mode }: AuthPageProps) {
     try {
       if (isRegister) {
         await registerUser(credentials)
-        navigate('/connexion?inscription=ok', { replace: true })
+        navigate('/login?inscription=ok', { replace: true })
       } else {
         await login(credentials)
         navigate('/', { replace: true })
@@ -131,7 +131,7 @@ function AuthPage({ mode }: AuthPageProps) {
 
       <p className="auth-switch">
         {isRegister ? 'Déjà un compte ? ' : 'Pas encore de compte ? '}
-        <Link to={isRegister ? '/connexion' : '/inscription'}>
+        <Link to={isRegister ? '/login' : '/inscription'}>
           {isRegister ? 'Se connecter' : 'Créer un compte'}
         </Link>
       </p>
