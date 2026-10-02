@@ -14,28 +14,43 @@ from models.user import User
 from dependencies.auth import get_current_user
 
 
-router = APIRouter(  # créé un mini routeur
+router = APIRouter(
     prefix="/auth",
     tags=["Auth"],
 )
 
 
+def validate_password(password: str) -> bool:
+    return (
+        len(password) >= 8
+        and any(char.isupper() for char in password)
+        and any(char.islower() for char in password)
+        and any(char.isdigit() for char in password)
+    )
+
+
 @router.post(
     "/register",
+    status_code=status.HTTP_201_CREATED,
     response_model=UserResponse,
-    status_code=status.HTTP_201_CREATED,  # inscription réussie doit retourner HTTP 201
 )
 async def register(
-    request: RegisterRequest,  # Le corps JSON de la requête doit correspondre à RegisterRequest
+    request: RegisterRequest,
     session: AsyncSession = Depends(get_session),
 ):
+    if not validate_password(request.password):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre",
+        )
+
     result = await session.execute(
         select(User).where(User.email == request.email)
     )
 
     existing_user = result.scalar_one_or_none()
 
-    if existing_user is not None:  # 409 Conflict si l'utilisateur existe déjà
+    if existing_user is not None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Un utilisateur avec cet email existe déjà",
@@ -48,9 +63,9 @@ async def register(
         password_hash=password_hash,
     )
 
-    session.add(user)  # ajoute l'utilisateur à la session
+    session.add(user)
 
-    await session.commit()  # commit pour sauvegarder l'utilisateur dans la DB
+    await session.commit()
 
     await session.refresh(user)
 
@@ -91,12 +106,12 @@ async def login(
         access_token=access_token,
         token_type="bearer",
     )
-    
+
+
 @router.get(
     "/me",
     response_model=UserResponse,
 )
-
 async def get_me(
     current_user: User = Depends(get_current_user),
 ):
