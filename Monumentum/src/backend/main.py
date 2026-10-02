@@ -5,6 +5,7 @@ from fastapi.exceptions import HTTPException as FastAPIHTTPException
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from db.database import create_db_and_tables
 
@@ -59,3 +60,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
