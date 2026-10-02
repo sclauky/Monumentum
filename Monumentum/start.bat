@@ -104,7 +104,23 @@ echo [OK] PostgreSQL est pret.
 echo.
 
 REM ==========================================
-REM 6. Initialiser / mettre a jour les monuments
+REM 6. Initialiser la base de donnees
+REM ==========================================
+
+echo [INFO] Initialisation de la base de donnees...
+"%PYTHON%" -c "import sys; sys.path.insert(0, 'src/backend'); import asyncio; from db.database import create_db_and_tables; asyncio.run(create_db_and_tables())"
+
+if errorlevel 1 (
+    echo [ERREUR] Initialisation de la base de donnees echouee.
+    pause
+    exit /b 1
+)
+
+echo [OK] Base de donnees initialisee.
+echo.
+
+REM ==========================================
+REM 7. Initialiser / mettre a jour les monuments
 REM ==========================================
 
 echo [INFO] Lancement du seed...
@@ -118,35 +134,6 @@ if errorlevel 1 (
 
 echo [OK] Seed termine.
 echo.
-
-REM ==========================================
-REM 7. Installer les dependances frontend
-REM ==========================================
-
-if not exist "%~dp0web\node_modules" (
-    echo [INFO] Installation des dependances frontend...
-
-    cd /d "%~dp0web"
-
-    if exist package-lock.json (
-        call npm ci
-    ) else (
-        call npm install
-    )
-
-    if errorlevel 1 (
-        echo [ERREUR] Installation frontend echouee.
-        pause
-        exit /b 1
-    )
-
-    cd /d "%~dp0"
-    echo [OK] Dependances frontend installees.
-    echo.
-) else (
-    echo [OK] Dependances frontend deja installees.
-    echo.
-)
 
 REM ==========================================
 REM 8. Lancer le backend
