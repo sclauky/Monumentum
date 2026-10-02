@@ -108,7 +108,7 @@ REM 6. Initialiser la base de donnees
 REM ==========================================
 
 echo [INFO] Initialisation de la base de donnees...
-"%PYTHON%" -c "import sys; sys.path.insert(0, 'src/backend'); import asyncio; from db.database import create_db_and_tables; asyncio.run(create_db_and_tables())"
+"%PYTHON%" -c "import sys; sys.path.insert(0, 'src/backend'); import models.monument, models.user, models.collection, models.comment_like; import asyncio; from db.database import create_db_and_tables; asyncio.run(create_db_and_tables())"
 
 if errorlevel 1 (
     echo [ERREUR] Initialisation de la base de donnees echouee.
