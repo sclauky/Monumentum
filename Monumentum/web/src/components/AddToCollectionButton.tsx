@@ -31,7 +31,7 @@ function AddToCollectionButton({
 
   if (!user) {
     return (
-      <Link to="/connexion" className="monument-signin-link">
+      <Link to="/login" className="monument-signin-link">
         Se connecter pour noter
       </Link>
     )

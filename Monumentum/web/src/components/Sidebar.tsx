@@ -61,7 +61,7 @@ function Sidebar() {
             )}
           </div>
         ) : !isLoading ? (
-          <NavLink to="/connexion" className="mobile-login">
+          <NavLink to="/login" className="mobile-login">
             Se connecter
           </NavLink>
         ) : (
@@ -159,7 +159,7 @@ function Sidebar() {
 
         {!user && !isLoading && (
           <NavLink
-            to="/connexion"
+            to="/login"
             className={(props) =>
               `${navClass(props)} auth-nav-link`
             }
