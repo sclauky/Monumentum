@@ -20,7 +20,9 @@ function CollectionPage({
 
   const visibleEntries = entries
     .filter((entry) =>
-      isWatchlist ? entry.statut !== 'vu' : entry.statut === 'vu',
+      isWatchlist
+        ? entry.statut !== 'termine'
+        : entry.statut === 'termine',
     )
     .sort((a, b) => {
       const dateDifference =

@@ -1,12 +1,13 @@
 import { httpClient } from './httpClient'
 import type {
   AuthCredentials,
+  RegisterCredentials,
   TokenResponse,
   User,
 } from '../types/api'
 
 export function registerUser(
-  credentials: AuthCredentials,
+  credentials: RegisterCredentials,
 ): Promise<User> {
   return httpClient<User>('/auth/register', {
     method: 'POST',

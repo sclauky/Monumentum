@@ -5,9 +5,9 @@ from sqlmodel import Field, SQLModel
 
 
 class Statut(str, Enum): # 3 états possibles
-    A_VOIR = "a_voir"
+    A_DECOUVRIR = "a_decouvrir"
     EN_COURS = "en_cours"
-    VU = "vu"
+    TERMINE = "termine"
 
 
 class CollectionEntry(SQLModel, table=True):

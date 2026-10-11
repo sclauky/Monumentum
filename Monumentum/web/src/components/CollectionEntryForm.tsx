@@ -4,7 +4,7 @@ import StarRating from './StarRating'
 import { useCollection } from '../hooks/useCollection'
 import type {
   CollectionEntry,
-  CollectionStatut,
+  Statut,
   CollectionUpdate,
 } from '../types/api'
 
@@ -21,7 +21,7 @@ function CollectionEntryForm({
 }: CollectionEntryFormProps) {
   const { updateEntry } = useCollection()
 
-  const [statut, setStatut] = useState<CollectionStatut>(entry.statut)
+  const [statut, setStatut] = useState<Statut>(entry.statut)
   const [note, setNote] = useState<number | null>(entry.note)
   const [commentaire, setCommentaire] = useState(
     entry.commentaire ?? '',
@@ -78,12 +78,12 @@ function CollectionEntryForm({
             id={`${fieldPrefix}-statut`}
             value={statut}
             onChange={(event) =>
-              setStatut(event.target.value as CollectionStatut)
+              setStatut(event.target.value as Statut)
             }
           >
-            <option value="a_voir">À voir</option>
+            <option value="a_decouvrir">À découvrir</option>
             <option value="en_cours">En cours</option>
-            <option value="vu">Vu</option>
+            <option value="termine">Terminé</option>
           </select>
         </div>
 

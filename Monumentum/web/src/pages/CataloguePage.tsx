@@ -1,18 +1,10 @@
 import { useState } from 'react'
+import CategoryFilters from '../components/CategoryFilters'
 import MonumentCard from '../components/MonumentCard'
 import SearchBar from '../components/SearchBar'
 import { useApi } from '../hooks/useApi'
 import { useDebounce } from '../hooks/useDebounce'
 import type { ItemListResponse } from '../types/api'
-
-const categories = [
-  'Château',
-  'Cathédrale',
-  'Fortification',
-  'Abbaye',
-  'Monument',
-  'Antiquité',
-]
 
 const LIMIT = 12
 
@@ -68,28 +60,10 @@ function CataloguePage() {
         />
       </header>
 
-      <div className="category-filters" aria-label="Catégories">
-        <button
-          type="button"
-          className="category-button"
-          aria-pressed={categorie === ''}
-          onClick={() => changerCategorie('')}
-        >
-          Tous
-        </button>
-
-        {categories.map((nomCategorie) => (
-          <button
-            key={nomCategorie}
-            type="button"
-            className="category-button"
-            aria-pressed={categorie === nomCategorie}
-            onClick={() => changerCategorie(nomCategorie)}
-          >
-            {nomCategorie}
-          </button>
-        ))}
-      </div>
+      <CategoryFilters
+        selectedCategory={categorie}
+        onSelect={changerCategorie}
+      />
 
       {loading && (
         <p className="catalogue-count" role="status">

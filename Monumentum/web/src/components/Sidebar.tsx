@@ -1,107 +1,36 @@
 import { useState } from 'react'
-
 import { NavLink } from 'react-router'
-
 import { useAuth } from '../hooks/useAuth'
+import MobileTopbar from './MobileTopbar'
+
+interface SidebarProps {
+  theme: 'dark' | 'light'
+  onToggleTheme: () => void
+}
 
 function navClass({ isActive }: { isActive: boolean }) {
   return `nav-item${isActive ? ' nav-item-active' : ''}`
 }
 
-function Sidebar() {
+function Sidebar({ theme, onToggleTheme }: SidebarProps) {
   const { user, isLoading, sessionError, logout } = useAuth()
-
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isAccountOpen, setIsAccountOpen] = useState(false)
 
   function closeMenu() {
     setIsMenuOpen(false)
   }
 
-  function toggleAccount() {
-    setIsAccountOpen((open) => !open)
-  }
-
-  function handleLogout() {
-    setIsAccountOpen(false)
-    logout()
-  }
-
   return (
     <aside className="sidebar">
-      {/* Barre du haut sur mobile */}
-      <div className="mobile-topbar">
-        {user && !isLoading ? (
-          <div className="mobile-account">
-            <button
-              type="button"
-              className="mobile-account-button"
-              onClick={toggleAccount}
-              aria-expanded={isAccountOpen}
-              aria-controls="mobile-account-menu"
-              aria-haspopup="true"
-              aria-label="Options du compte"
-            >
-              {user.email.charAt(0).toUpperCase()}
-            </button>
-
-            {isAccountOpen && (
-              <div
-                id="mobile-account-menu"
-                className="mobile-account-menu"
-              >
-                <button
-                  type="button"
-                  className="mobile-logout-button"
-                  onClick={handleLogout}
-                >
-                  Se déconnecter
-                </button>
-              </div>
-            )}
-          </div>
-        ) : !isLoading ? (
-          <NavLink to="/login" className="mobile-login">
-            Se connecter
-          </NavLink>
-        ) : (
-          <span
-            className="mobile-topbar-spacer"
-            aria-hidden="true"
-          />
-        )}
-
-        <div className="brand mobile-brand">
-          <img
-            src="/monumentum_logo.png"
-            alt=""
-            className="brand-logo"
-            width={52}
-            height={52}
-          />
-
-          <span className="brand-name">
-            Monumentum
-          </span>
-        </div>
-
-        <button
-          type="button"
-          className={`mobile-menu-toggle${isMenuOpen ? ' is-open' : ''}`}
-          onClick={() => setIsMenuOpen((open) => !open)}
-          aria-expanded={isMenuOpen}
-          aria-controls="primary-navigation"
-          aria-label={
-            isMenuOpen
-              ? 'Fermer le menu'
-              : 'Ouvrir le menu'
-          }
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
+      <MobileTopbar
+        user={user}
+        isLoading={isLoading}
+        isMenuOpen={isMenuOpen}
+        theme={theme}
+        onToggleMenu={() => setIsMenuOpen((open) => !open)}
+        onToggleTheme={onToggleTheme}
+        onLogout={logout}
+      />
 
       {/* Logo sur ordinateur */}
       <div className="brand desktop-brand">
@@ -149,14 +78,6 @@ function Sidebar() {
           À voir
         </NavLink>
 
-        <button
-          type="button"
-          className="nav-item"
-          disabled
-        >
-          Statistiques
-        </button>
-
         {!user && !isLoading && (
           <NavLink
             to="/login"
@@ -168,6 +89,7 @@ function Sidebar() {
             Se connecter
           </NavLink>
         )}
+
       </nav>
 
       {/* Profil sur ordinateur uniquement */}

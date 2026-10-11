@@ -15,7 +15,7 @@ function CollectionCard({ entry }: CollectionCardProps) {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
 
-  const isVisited = entry.statut === 'vu'
+  const isVisited = entry.statut === 'termine'
 
   async function handleSave(review: MonumentReview) {
     await saveReview(entry.item.id, review)

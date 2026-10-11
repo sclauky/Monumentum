@@ -25,13 +25,13 @@ export function addToCollection(
   const body: CollectionCreate = review
     ? {
         item_id: itemId,
-        statut: 'vu',
+        statut: 'termine',
         note: review.note,
         commentaire: review.commentaire,
       }
     : {
         item_id: itemId,
-        statut: 'a_voir',
+        statut: 'a_decouvrir',
       }
 
   return httpClient<CollectionEntry>(
