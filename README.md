@@ -58,6 +58,14 @@ Monumentum/
 
 # Lancement du projet !!! NON COMPATIBLE AVEC LA VERSION WSL !!!
 
+Commencez par taper dans votre terminal
+
+```
+cd .\Monumentum\
+```
+Puis lancez votre application docker desktop sur votre ordinateur
+
+Ensuite vous pouvez lancer le projet en tapant cette commande:
 ```
 ./.start.bat
 ```
