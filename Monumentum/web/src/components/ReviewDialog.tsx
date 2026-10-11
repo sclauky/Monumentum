@@ -32,6 +32,7 @@ function ReviewDialog({
     const dialog = dialogRef.current
     if (!dialog) return
 
+    // showModal ouvre la vraie boîte de dialogue du navigateur.
     dialog.showModal()
 
     return () => dialog.close()

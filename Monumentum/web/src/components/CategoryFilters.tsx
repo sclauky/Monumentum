@@ -12,6 +12,7 @@ const categories = [
   'Antiquité',
 ]
 
+// Chaque bouton renvoie la catégorie sélectionnée à la page du catalogue.
 function CategoryFilters({
   selectedCategory,
   onSelect,

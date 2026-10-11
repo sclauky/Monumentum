@@ -41,6 +41,7 @@ export async function httpClient<T>(
   options: RequestInit = {},
   token: string | null = null,
 ): Promise<T> {
+  // On prépare les mêmes en-têtes pour tous les appels à l'API.
   const headers = new Headers(options.headers)
   headers.set('Accept', 'application/json')
 

@@ -290,20 +290,10 @@ async def get_monument_comments(
 
     commentaires.sort(key=lambda comment: comment.likes, reverse=True)
 
-    # Calcul de la moyenne des notes
-    note_result = await session.execute(
-        select(func.avg(CollectionEntry.note)).where(
-            CollectionEntry.item_id == item_id,
-            CollectionEntry.note.is_not(None),
-        )
-    )
-
-    note_moyenne = note_result.scalar_one()
-
     return MonumentCommentsResponse(
         commentaires=commentaires,
-        note_moyenne=float(note_moyenne or 0),
     )
+
 
 @router.post(
     "/items/comments/{entry_id}/like",

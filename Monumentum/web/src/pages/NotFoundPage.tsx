@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 
+// Cette page s'affiche quand l'adresse ne correspond à aucune route.
 function NotFoundPage() {
   return (
     <section className="empty-state">

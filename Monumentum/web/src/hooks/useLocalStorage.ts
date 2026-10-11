@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// Ce hook garde une valeur en mémoire et la retrouve au prochain chargement.
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,

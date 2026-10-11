@@ -40,6 +40,7 @@ export function useApi<T>(path: string) {
     void charger()
 
     return () => {
+      // Évite qu'une réponse d'une ancienne page remplace les données actuelles.
       controller.abort()
     }
   }, [path])

@@ -6,6 +6,7 @@ import type {
   MonumentReview,
 } from '../types/api'
 
+// Les fonctions ici correspondent aux actions possibles sur la collection.
 export function getCollection(
   token: string,
   signal?: AbortSignal,

@@ -44,4 +44,3 @@ class CommentResponse(BaseModel):
 
 class MonumentCommentsResponse(BaseModel):
     commentaires: list[CommentResponse]
-    note_moyenne: float

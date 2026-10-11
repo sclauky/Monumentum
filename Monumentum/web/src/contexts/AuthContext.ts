@@ -10,6 +10,7 @@ interface AuthContextValue {
   logout: () => void
 }
 
+// Ce contexte partage l'état de connexion avec le reste de l'interface.
 export const AuthContext = createContext<AuthContextValue | null>(
   null,
 )

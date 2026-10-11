@@ -3,6 +3,7 @@ interface SearchBarProps {
   onChange: (value: string) => void
 }
 
+// Le texte saisi est géré par la page qui affiche les résultats.
 function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <div className="search-field">

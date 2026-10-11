@@ -8,6 +8,7 @@ interface CollectionCardProps {
   entry: CollectionEntry
 }
 
+// Une carte affiche un monument de la collection avec ses actions.
 function CollectionCard({ entry }: CollectionCardProps) {
   const { removeEntry, saveReview } = useCollection()
   const [isReviewOpen, setIsReviewOpen] = useState(false)

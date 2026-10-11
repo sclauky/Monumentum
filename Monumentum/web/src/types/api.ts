@@ -4,6 +4,7 @@ export type Rarete =
   | 'super rare'
   | 'gatekeeped'
 
+// Types des données de monuments et des réponses de l'API.
 export interface Item {
   id: number
   titre: string

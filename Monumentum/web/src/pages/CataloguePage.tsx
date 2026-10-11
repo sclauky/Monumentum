@@ -15,6 +15,7 @@ function CataloguePage() {
 
   const rechercheDifferee = useDebounce(recherche, 400)
 
+  // Les filtres sont dans l'URL de l'API, donc une seule requête charge les résultats voulus.
   const params = new URLSearchParams({
     page: String(page),
     limit: String(LIMIT),

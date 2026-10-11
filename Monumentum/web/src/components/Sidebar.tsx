@@ -12,6 +12,7 @@ function navClass({ isActive }: { isActive: boolean }) {
   return `nav-item${isActive ? ' nav-item-active' : ''}`
 }
 
+// La barre rassemble les liens principaux et les infos du compte.
 function Sidebar({ theme, onToggleTheme }: SidebarProps) {
   const { user, isLoading, sessionError, logout } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)

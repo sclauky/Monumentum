@@ -24,6 +24,7 @@ function MobileTopbar({
 }: MobileTopbarProps) {
   const [isAccountOpen, setIsAccountOpen] = useState(false)
 
+  // On ferme le petit menu du compte avant de lancer la déconnexion.
   function handleLogout() {
     setIsAccountOpen(false)
     onLogout()

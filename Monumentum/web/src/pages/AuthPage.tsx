@@ -22,6 +22,7 @@ function AuthPage({ mode }: AuthPageProps) {
   const disabled = isSubmitting || isLoading
   const title = isRegister ? 'Créer un compte' : 'Se connecter'
 
+  // Une personne déjà connectée n'a pas besoin de rester sur le formulaire.
   if (user) return <Navigate to="/" replace />
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -33,6 +34,7 @@ function AuthPage({ mode }: AuthPageProps) {
     try {
       const credentials = { email: email.trim(), password }
 
+      // L'inscription crée d'abord le compte, puis renvoie vers la connexion.
       if (isRegister) {
         const details = {
           nom: identity.nom.trim(),

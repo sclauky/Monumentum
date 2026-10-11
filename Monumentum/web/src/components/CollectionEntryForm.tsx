@@ -42,6 +42,7 @@ function CollectionEntryForm({
       commentaire: commentaire.trim(),
     }
 
+    // Une note vide est permise, mais une note renseignée doit être entre 1 et 5.
     if (note !== null) {
       if (!Number.isFinite(note) || note < 1 || note > 5) {
         setError('La note doit être comprise entre 1 et 5.')

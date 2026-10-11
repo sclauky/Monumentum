@@ -29,6 +29,7 @@ function WatchlistButton({
   const [error, setError] = useState<string | null>(null)
   const [confirmation, setConfirmation] = useState<string | null>(null)
 
+  // Le message de confirmation disparaît tout seul après quelques secondes.
   useEffect(() => {
     if (!confirmation) return
     const timeout = window.setTimeout(() => {
@@ -63,6 +64,7 @@ function WatchlistButton({
     onPendingChange?.(true)
 
     try {
+      // Un élément déjà enregistré est retiré; sinon on l'ajoute à la liste.
       if (entry) {
         await removeEntry(entry.id)
         setConfirmation('Retiré des lieux à visiter')

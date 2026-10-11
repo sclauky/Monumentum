@@ -12,6 +12,7 @@ interface AddToCollectionButtonProps {
   disabled?: boolean
 }
 
+// Ce bouton ouvre le formulaire pour noter une visite.
 function AddToCollectionButton({
   itemId,
   itemTitle = 'ce monument',
@@ -25,6 +26,7 @@ function AddToCollectionButton({
   const [isReviewOpen, setIsReviewOpen] = useState(false)
   const [watchlistPending, setWatchlistPending] = useState(false)
 
+  // On attend la vérification du compte avant d'afficher les actions.
   if (isLoading) {
     return <p role="status">Vérification de votre session…</p>
   }

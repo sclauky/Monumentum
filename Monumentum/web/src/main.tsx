@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App'
 
+// React affiche toute l'application dans l'élément root du HTML.
 const rootElement = document.getElementById('root')
 
 if (!rootElement) {

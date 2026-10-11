@@ -18,6 +18,7 @@ function CollectionPage({
   const isWatchlist = mode === 'watchlist'
   const title = isWatchlist ? 'Mes prochaines visites' : 'Ma collection'
 
+  // La liste affichée dépend du mode, puis on applique le tri choisi.
   const visibleEntries = entries
     .filter((entry) =>
       isWatchlist

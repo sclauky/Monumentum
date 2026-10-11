@@ -4,6 +4,7 @@ interface ThemeToggleProps {
   className: string
 }
 
+// Le parent conserve le thème, ce composant ne fait que demander le changement.
 function ThemeToggle({
   theme,
   onToggle,

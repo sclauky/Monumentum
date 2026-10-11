@@ -6,6 +6,7 @@ import type { Item } from '../types/api'
 function MonumentPage() {
   const { id } = useParams()
 
+  // L'identifiant de l'adresse sert à demander la fiche du monument.
   const {
     data: monument,
     loading,
@@ -34,6 +35,7 @@ function MonumentPage() {
   }
 
   const anneeAffichee =
+    // Les années négatives sont affichées avec la mention avant J.-C.
     monument.annee < 0
       ? `${Math.abs(monument.annee)} av. J.-C.`
       : monument.annee

@@ -23,6 +23,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   )
 
   useEffect(() => {
+    // Au rechargement, on vérifie que le token enregistré fonctionne encore.
     if (!token) {
       setUser(null)
       setIsLoading(false)

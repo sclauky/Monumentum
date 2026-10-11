@@ -11,6 +11,7 @@ function StarRating({
   onChange,
   disabled = false,
 }: StarRatingProps) {
+  // Les boutons radio gardent la note utilisable au clavier aussi.
   return (
     <fieldset className="star-rating" disabled={disabled}>
       <legend>Ma note</legend>

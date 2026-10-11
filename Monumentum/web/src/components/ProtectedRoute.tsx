@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
 function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user, isLoading } = useAuth()
 
+  // On attend la réponse avant de décider si la page est accessible.
   if (isLoading) {
     return (
       <p className="catalogue-count" role="status">

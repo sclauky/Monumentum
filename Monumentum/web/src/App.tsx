@@ -37,6 +37,7 @@ function App() {
             <Sidebar theme={theme} onToggleTheme={toggleTheme} />
 
             <main className="main-content">
+              {/* Toutes les pages de l'appli sont déclarées ici. */}
               <Routes>
                 <Route path="/" element={<CataloguePage />} />
 

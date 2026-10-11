@@ -14,6 +14,7 @@ const fields = [
   { name: 'pseudo', label: 'Pseudo', autoComplete: 'nickname' },
 ] as const
 
+// Les champs d'identité sont regroupés ici pour alléger le formulaire d'inscription.
 function RegisterFields({ value, onChange, disabled }: RegisterFieldsProps) {
   return (
     <>

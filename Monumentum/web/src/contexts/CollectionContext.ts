@@ -22,5 +22,6 @@ interface CollectionContextValue {
   ) => Promise<void>
 }
 
+// Les composants utilisent ce contexte pour lire et modifier la collection.
 export const CollectionContext =
   createContext<CollectionContextValue | null>(null)

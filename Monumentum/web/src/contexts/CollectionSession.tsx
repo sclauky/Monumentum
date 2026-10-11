@@ -90,6 +90,7 @@ function CollectionSession({ children, token }: CollectionSessionProps) {
     }
 
     const existingEntry = entries.find((entry) => entry.item.id === itemId)
+    // Si le monument est déjà dans la collection, on ajoute juste l'avis à son entrée.
     const savedEntry = existingEntry
       ? await updateCollectionEntry(
           existingEntry.id,

@@ -15,6 +15,7 @@ function MonumentCard({
 }: MonumentCardProps) {
   const [watchlistPending, setWatchlistPending] = useState(false)
 
+  // Cette carte est réutilisée dans le catalogue et dans les pages de collection.
   return (
     <article className="monument-card">
       <div className="monument-poster">

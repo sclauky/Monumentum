@@ -6,6 +6,7 @@ import type {
   User,
 } from '../types/api'
 
+// Ces fonctions regroupent les requêtes liées au compte utilisateur.
 export function registerUser(
   credentials: RegisterCredentials,
 ): Promise<User> {
