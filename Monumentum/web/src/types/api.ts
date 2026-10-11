@@ -28,9 +28,19 @@ export interface AuthCredentials {
   password: string
 }
 
+export interface RegisterCredentials extends AuthCredentials {
+  nom: string
+  prenom: string
+  pseudo: string
+}
+
 export interface User {
   id: number
   email: string
+  nom: string
+  prenom: string
+  pseudo: string
+  photo_url: string | null
 }
 
 export interface TokenResponse {
@@ -38,18 +48,18 @@ export interface TokenResponse {
   token_type: string
 }
 
-export type CollectionStatut = 'a_voir' | 'en_cours' | 'vu'
+export type Statut = 'a_decouvrir' | 'en_cours' | 'termine'
 
 export interface CollectionCreate {
   item_id: number
-  statut: CollectionStatut
+  statut: Statut
   note?: number | null
   commentaire?: string | null
 }
 
 export interface CollectionEntry {
   id: number
-  statut: CollectionStatut
+  statut: Statut
   note: number | null
   commentaire: string | null
   date_ajout: string
@@ -57,7 +67,7 @@ export interface CollectionEntry {
 }
 
 export interface CollectionUpdate {
-  statut?: CollectionStatut | null
+  statut?: Statut | null
   note?: number | null
   commentaire?: string | null
 }

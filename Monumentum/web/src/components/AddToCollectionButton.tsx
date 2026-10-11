@@ -57,7 +57,7 @@ function AddToCollectionButton({
   }
 
   const entry = entries.find((item) => item.item.id === itemId)
-  const isVisited = entry?.statut === 'vu'
+  const isVisited = entry?.statut === 'termine'
   const hasRating = isVisited && entry.note !== null
 
   return (

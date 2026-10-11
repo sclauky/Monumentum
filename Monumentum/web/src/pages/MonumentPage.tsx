@@ -46,11 +46,13 @@ function MonumentPage() {
 
       <article className="monument-detail">
         {monument.image_url && (
-          <img
-            className="detail-image"
-            src={monument.image_url}
-            alt={monument.titre}
-          />
+          <div className="detail-image-frame">
+            <img
+              className="detail-image"
+              src={monument.image_url}
+              alt={monument.titre}
+            />
+          </div>
         )}
 
         <div className="detail-content">

@@ -38,7 +38,7 @@ function WatchlistButton({
   }, [confirmation])
 
   const entry = entries.find((item) => item.item.id === itemId)
-  const isVisited = entry?.statut === 'vu'
+  const isVisited = entry?.statut === 'termine'
   const isSaved = Boolean(entry) && !isVisited
   const isDisabled =
     pending || isLoading || loading || isVisited || Boolean(collectionError)

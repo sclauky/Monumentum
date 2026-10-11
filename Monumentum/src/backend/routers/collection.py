@@ -29,44 +29,6 @@ router = APIRouter(
 )
 
 
-@router.get(
-    "",
-    response_model=list[CollectionEntryResponse],
-)
-async def get_collection(
-    current_user: User = Depends(get_current_user),
-    session: AsyncSession = Depends(get_session),
-):
-    result = await session.execute(
-        select(CollectionEntry).where(
-            CollectionEntry.user_id == current_user.id
-        )
-    )
-
-    entries = result.scalars().all()
-
-    results = []
-
-    for entry in entries:
-        item_result = await session.execute(
-            select(Monument).where(Monument.id == entry.item_id)
-        )
-
-        item = item_result.scalar_one()
-
-        results.append(
-            CollectionEntryResponse(
-                id=entry.id,
-                statut=entry.statut,
-                note=entry.note,
-                commentaire=entry.commentaire,
-                date_ajout=entry.date_ajout,
-                item=item,
-            )
-        )
-
-    return results
-
 @router.post(
     "",
     response_model=CollectionEntryResponse,
@@ -91,11 +53,11 @@ async def add_to_collection(
             detail="Item introuvable",
         )
         
-    if request.statut == Statut.VU:
+    if request.statut == Statut.TERMINE:
         if request.note is None or not 1 <= request.note <= 5:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Une note entre 1 et 5 est obligatoire pour un monument vu",
+                detail="Une note entre 1 et 5 est obligatoire pour un monument terminé",
             )
 
     # Vérifie que l'utilisateur ne possède pas déjà ce monument
@@ -165,11 +127,11 @@ async def update_collection_entry(
     new_statut = request.statut if request.statut is not None else entry.statut
     new_note = request.note if request.note is not None else entry.note
 
-    if new_statut == Statut.VU:
+    if new_statut == Statut.TERMINE:
         if new_note is None or not 1 <= new_note <= 5:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Une note entre 1 et 5 est obligatoire pour un monument vu",
+                detail="Une note entre 1 et 5 est obligatoire pour un monument terminé",
             )
 
     if request.statut is not None:
@@ -229,7 +191,10 @@ async def delete_from_collection(
     await session.delete(entry)
     await session.commit()
     
-@router.get("", response_model=list[CollectionEntryResponse])
+@router.get(
+    "",
+    response_model=list[CollectionEntryResponse],
+)
 async def get_collection(
     statut: Statut | None = None,
     tri: Literal["date", "note"] | None = None,
