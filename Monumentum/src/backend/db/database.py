@@ -87,16 +87,3 @@ async def create_db_and_tables() -> None: #créer tables
                     )
                     existing_labels.remove(old_label)
                     existing_labels.add(new_label)
-
-        await connection.execute(
-            text(
-                "UPDATE collectionentry SET statut = 'A_DECOUVRIR' "
-                "WHERE upper(statut) = 'A_VOIR'"
-            )
-        )
-        await connection.execute(
-            text(
-                "UPDATE collectionentry SET statut = 'TERMINE' "
-                "WHERE upper(statut) = 'VU'"
-            )
-        )
