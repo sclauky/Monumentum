@@ -57,23 +57,22 @@ Monumentum/
 └── .venv/
 ```
 
-# Lancement complet (Windows)
+# Lancement complet WINDOWS UNIQUEMENT
 
-Le moyen le plus simple est de lancer le projet complet avec une seule commande.
+## Sur votre ordinateur
 
-## ouvrir l'application docker avant d'effectuer la commande
+Avant de taper toute commande, lancez l'application "Docker Desktop" sur votre ordinateur.
 
-Ensuite depuis la racine du dépôt :
+En suite, après avoir pull, pensez à modifier votre fichier .env qui se trouve dans le dossier monumentum (.\Monumentum\.env).
 
-```powershell
-.\Monumentum\start.bat
+## Dans votre termianl VScode
+
+Une fois l'application totalement lancé vous pouveez taper cette commande dans votre terminal (en étant à la racine du projet):
+```
+cd .\Monumentum\
 ```
 
-Le script prépare les dépendances, démarre PostgreSQL avec Docker, puis lance
-l’API et le frontend dans des fenêtres séparées. Docker Desktop doit être
-installé et démarré. Ce script est prévu pour Windows et n’est pas compatible
-avec WSL.
-
-Pour démarrer uniquement le backend ou le frontend, consulte les README dans
-[`Monumentum/src`](./Monumentum/src/README.md) et
-[`Monumentum/web`](./Monumentum/web/README.md).
+Une fois fait vous pouvez lancer le projet en tapant uniquement cette commande:
+```
+.\start.bat
+```
