@@ -1,6 +1,7 @@
 # Monumentum
 
-Application de gestion d’une collection de monuments français, avec une API FastAPI et une interface frontend React/Vite.
+Monumentum est une application web dédiée à la découverte des monuments français.
+Consultez leurs fiches descriptives et gérez votre collection personnelle en suivant ceux que vous souhaitez découvrir, que vous visitez ou que vous avez déjà vus.
 
 ## Arborescence du projet
 
@@ -56,8 +57,23 @@ Monumentum/
 └── .venv/
 ```
 
-# Lancement du projet !!! NON COMPATIBLE AVEC LA VERSION WSL !!!
+# Lancement complet (Windows)
 
+Le moyen le plus simple est de lancer le projet complet avec une seule commande.
+
+## ouvrir l'application docker avant d'effectuer la commande
+
+Ensuite depuis la racine du dépôt :
+
+```powershell
+.\Monumentum\start.bat
 ```
-./.start.bat
-```
+
+Le script prépare les dépendances, démarre PostgreSQL avec Docker, puis lance
+l’API et le frontend dans des fenêtres séparées. Docker Desktop doit être
+installé et démarré. Ce script est prévu pour Windows et n’est pas compatible
+avec WSL.
+
+Pour démarrer uniquement le backend ou le frontend, consulte les README dans
+[`Monumentum/src`](./Monumentum/src/README.md) et
+[`Monumentum/web`](./Monumentum/web/README.md).
